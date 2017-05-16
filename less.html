@@ -27,6 +27,7 @@
 			.reveal .function-list li { font-size: 20px; }
 			.reveal .ul-list li { font-size: 36px; line-height: 45px; margin-bottom: 10px; }
 			.reveal .ol-list li { font-size: 36px; line-height: 45px; margin-bottom: 10px; }
+			.reveal pre code{ max-height: 550px; }
 		</style>
 		<!-- Printing and PDF exports -->
 		<script>
@@ -68,6 +69,7 @@
 					<h3 style="font-weight: normal;">凌晨</h3>
 					<p>前端开发工程师</p>
 					<p>weibo:<a href="http://weibo.com/goldendawnlechan?is_all=1">@黄金de拂晓</a></p>
+					<p>曾就职于新浪、联想、药王科技</p>
 				</section>
 
 				<section>
@@ -130,6 +132,9 @@
 					<section>
 						<h4>Less：</h4>
 						<pre><code class="hljs" data-trim contenteditable>
+							.bordered {
+							  border: 1px solid black;
+							}
 							.bd-radius(@radius: 5px) {
 							  -webkit-border-radius: @radius;
 							  -moz-border-radius: @radius;
@@ -138,9 +143,11 @@
 							  border-radius: @radius;
 							}
 							#header {
+							  .bordered;
 							  .bd-radius();
 							}
 							#footer {
+							  .bordered;
 							  .bd-radius(10px);
 							}
 						</code></pre>
@@ -148,7 +155,11 @@
 					<section>
 						<h4>编译后的CSS：</h4>
 						<pre><code class="hljs" data-trim contenteditable>
+							.bordered {
+							  border: 1px solid black;
+							}
 							#header {
+							  border: 1px solid black;
 							  -webkit-border-radius: 5px;
 							  -moz-border-radius: 5px;
 							  -ms-border-radius: 5px;
@@ -156,6 +167,7 @@
 							  border-radius: 5px;
 							}
 							#footer {
+							  border: 1px solid black;
 							  -webkit-border-radius: 10px;
 							  -moz-border-radius: 10px;
 							  -ms-border-radius: 10px;
@@ -487,6 +499,7 @@
 							  color: @var; //red
 							}
 						</code></pre>
+						<p style="font-size: 28px;">Tips：如果把最顶部的这个@var: red 去掉进行编译会怎样？</p>
 					</section>
 					<section>
 						<h3>对比javascript的作用域：</h3>
@@ -540,10 +553,12 @@
 						  color: black;
 						}
 					</code></pre>
-					<p style="text-align: left;">对比es6字符串模板：</p>
-					<pre><code class="hljs" data-trim contenteditable>
-						`${base-url}/images/bg.png`
-					</code></pre>
+					<div class="fragment">
+						<p style="text-align: left;">对比es6字符串模板：</p>
+						<pre><code class="hljs" data-trim contenteditable>
+							`${base-url}/images/bg.png`
+						</code></pre>
+					</div>
 				</section>
 
 				<!-- 避免编译 -->
@@ -592,6 +607,31 @@
 							</code></pre>
 						</li>
 					</ol>
+				</section>
+
+				<!-- Less的现状 -->
+				<section>
+					<section>
+						<h3>Less的瓶颈及现状</h3>
+						<ul class="ul-list">
+							<li class="fragment">从词法角度讲，LESS的确是最接近CSS的，但是仅限于如此。但是不幸的是它占用了 @at-rule 关键字作为了变量标识符，使得功能扩展性大大降低</li>
+							<li class="fragment">引入循环、条件判断。Less是通过递归解决循环的，其他语言可以使用if、else、for等关键字</li>
+							<li class="fragment">这些缺陷在Less第一版出现时，就已经注定了这个语言的没落</li>
+						</ul>
+					</section>
+					<section>
+						<ul class="ul-list">
+							<li>
+							bootstrap从2的默认less，到3的scss复制，到未来4的scss默认。也能看出Less开始慢慢淡出前端技术栈的第一梯队。
+							<div><img src="images/topic.png" style="background: none; border: 0;"></div>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>Less的实例以及常用Mixins</h3>
+					<p>演示代码</p>
 				</section>
 
 				<section>
