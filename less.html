@@ -26,6 +26,7 @@
 			.reveal .qr-content .qr-item h5 { font-size: 25px; font-weight: normal; }
 			.reveal .function-list li { font-size: 20px; }
 			.reveal .ul-list li { font-size: 36px; line-height: 45px; margin-bottom: 10px; }
+			.reveal .ol-list { width: 100%; }
 			.reveal .ol-list li { font-size: 36px; line-height: 45px; margin-bottom: 10px; }
 			.reveal pre code{ max-height: 550px; }
 		</style>
@@ -596,11 +597,7 @@
 						        test: /\.less$/,
 						        use: ExtractTextPlugin.extract({
 						          fallback: 'style-loader',
-						          use: [{
-					              loader: 'css-loader'
-					            }, {
-					              loader: 'less-loader'
-						          }]
+						          use: ['css-loader', 'postcss-loader', 'less-loader']
 						        })
 						      }]
 							  }
@@ -632,6 +629,7 @@
 				<section>
 					<h3>Less的实例以及常用Mixins</h3>
 					<p>演示代码</p>
+					<p>Q&A</p>
 				</section>
 
 				<section>
