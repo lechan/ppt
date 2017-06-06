@@ -1,108 +1,145 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
 
-		<title>CSS预编译语言Less的浅析</title>
+    <title>CSS预编译语言Less的浅析</title>
 
-		<meta name="description" content="CSS预编译语言Less的浅析">
-		<meta name="author" content="lechan">
+    <meta name="description" content="CSS预编译语言Less的浅析">
+    <meta name="author" content="lechan">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-		<style type="text/css">
-			.reveal .qr-content {width: 100%; overflow: hidden; font-size: 0;}
-			.reveal .qr-content .qr-item { display:inline-block; width: 50%; text-align: center;}
-			.reveal .qr-content .qr-item img { width: 50%; }
-			.reveal .qr-content .qr-item h5 { font-size: 25px; font-weight: normal; }
-			.reveal .function-list li { font-size: 20px; }
-			.reveal .ul-list li { font-size: 36px; line-height: 45px; margin-bottom: 10px; }
-			.reveal .ol-list { width: 100%; }
-			.reveal .ol-list li { font-size: 36px; line-height: 45px; margin-bottom: 10px; }
-			.reveal pre code{ max-height: 550px; }
-		</style>
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style type="text/css">
+        .reveal .qr-content {
+            width: 100%;
+            overflow: hidden;
+            font-size: 0;
+        }
+        
+        .reveal .qr-content .qr-item {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+        }
+        
+        .reveal .qr-content .qr-item img {
+            width: 50%;
+        }
+        
+        .reveal .qr-content .qr-item h5 {
+            font-size: 25px;
+            font-weight: normal;
+        }
+        
+        .reveal .function-list li {
+            font-size: 20px;
+        }
+        
+        .reveal .ul-list li {
+            font-size: 36px;
+            line-height: 45px;
+            margin-bottom: 10px;
+        }
+        
+        .reveal .ol-list {
+            width: 100%;
+        }
+        
+        .reveal .ol-list li {
+            font-size: 36px;
+            line-height: 45px;
+            margin-bottom: 10px;
+        }
+        
+        .reveal pre code {
+            max-height: 550px;
+        }
+    </style>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
 
-		<!--[if lt IE 9]>
+    <!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
-	</head>
+</head>
 
-	<body>
+<body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h2>CSS预编译语言LESS的浅析</h2>
-					<h3>Less is More</h3>
-					<div><a href="http://lesscss.cn/" target="_blank"><img src="images/logo.png" style="width:35%; border: 0; background: none;"></a></div>
-				</section>
-				
-				<section>
-					<div class="qr-content">
-						<div class="qr-item">
-							<img src="images/weixin.png">
-							<h5>微信</h5>
-						</div>
-						<div class="qr-item">
-							<img src="images/weibo.png">
-							<h5>微博</h5>
-						</div>
-					</div>
-					<h3 style="font-weight: normal;">凌晨</h3>
-					<p>前端开发工程师</p>
-					<p>weibo:<a href="http://weibo.com/goldendawnlechan?is_all=1">@黄金de拂晓</a></p>
-				</section>
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h2>CSS预编译语言LESS的浅析</h2>
+                <h3>Less is More</h3>
+                <div>
+                    <a href="http://lesscss.cn/" target="_blank"><img src="images/logo.png" style="width:35%; border: 0; background: none;"></a>
+                </div>
+            </section>
 
-				<section>
-					<h2>什么是Less？</h2>
-					<ul class="ul-list">
-						<li class="fragment">Less是一种动态样式语言，属于CSS预处理语言的一种，它使用类似CSS的语法，为CSS的赋予了动态语言的特性，如变量、继承、运算、函数等，更方便CSS的编写和维护。</li>
-						<li class="fragment">Less可以在多种语言、环境中使用，包括浏览器端、桌面客户端、服务端。</li>
-						<li class="fragment">Less是2009年诞生的，比他的兄弟语言Sass晚了2年（Sass是2007年），Less受Sass影响较大，语法比Sass简单而且更容易上手，因此反过来也影响了Sass演变成了Scss的时代。</li>
-					</ul>
-				</section>
-				
-				<section>
-					<h2>Less的语言特点</h2>
-					<ul class="ul-list">
-						<li class="fragment">变量 （Variables）：允许定义通用样式</li>
-						<li class="fragment">混合（Mixins）：class中的class;</li>
-						<li class="fragment">嵌套规则（Nested Rules）：class中嵌套class，从而减少重复的代码；</li>
-						<li class="fragment">运算（Operations）：css中的数学计算；</li>
-						<li class="fragment">函数和颜色功能（Color function）：可以编辑你的颜色；</li>
-						<li class="fragment">命名空间（Namespaces）：样式分组，从而方便被调用；</li>
-						<li class="fragment">作用域（Scope）：局部修改样式</li>
-					</ul>
-				</section>
-				
-				<!-- 变量（Variables） -->
-				<section>
-					<section>
-						<h2>变量（Variables）</h2>
-						<p>变量允许我们单独定义一系列通用的样式，然后在需要的时候去调用。所以在做全局样式调整的时候我们可能只需要修改几行代码就可以了。</p>
-					</section>
-					<section>
-						<h4>Less：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+            <section>
+                <div class="qr-content">
+                    <div class="qr-item">
+                        <img src="images/weixin.png">
+                        <h5>微信</h5>
+                    </div>
+                    <div class="qr-item">
+                        <img src="images/weibo.png">
+                        <h5>微博</h5>
+                    </div>
+                </div>
+                <h3 style="font-weight: normal;">凌晨</h3>
+                <p>前端开发工程师</p>
+                <p>weibo:<a href="http://weibo.com/goldendawnlechan?is_all=1">@黄金de拂晓</a></p>
+            </section>
+
+            <section>
+                <h2>什么是Less？</h2>
+                <ul class="ul-list">
+                    <li class="fragment">Less是一种动态样式语言，属于CSS预处理语言的一种，它使用类似CSS的语法，为CSS的赋予了动态语言的特性，如变量、继承、运算、函数等，更方便CSS的编写和维护。</li>
+                    <li class="fragment">Less可以在多种语言、环境中使用，包括浏览器端、桌面客户端、服务端。</li>
+                    <li class="fragment">Less是2009年诞生的，比他的兄弟语言Sass晚了2年（Sass是2007年），Less受Sass影响较大，语法比Sass简单而且更容易上手，因此反过来也影响了Sass演变成了Scss的时代。</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Less的语言特点</h2>
+                <ul class="ul-list">
+                    <li class="fragment">变量 （Variables）：允许定义通用样式</li>
+                    <li class="fragment">混合（Mixins）：class中的class;</li>
+                    <li class="fragment">嵌套规则（Nested Rules）：class中嵌套class，从而减少重复的代码；</li>
+                    <li class="fragment">运算（Operations）：css中的数学计算；</li>
+                    <li class="fragment">函数和颜色功能（Color function）：可以编辑你的颜色；</li>
+                    <li class="fragment">命名空间（Namespaces）：样式分组，从而方便被调用；</li>
+                    <li class="fragment">作用域（Scope）：局部修改样式</li>
+                </ul>
+            </section>
+
+            <!-- 变量（Variables） -->
+            <section>
+                <section>
+                    <h2>变量（Variables）</h2>
+                    <p>变量允许我们单独定义一系列通用的样式，然后在需要的时候去调用。所以在做全局样式调整的时候我们可能只需要修改几行代码就可以了。</p>
+                </section>
+                <section>
+                    <h4>Less：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							@color: #fff;
 							#header {
 							  color: @color;
@@ -111,8 +148,8 @@
 							  color: @color;
 							}
 						</code></pre>
-						<h4>编译后的CSS：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <h4>编译后的CSS：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							#header {
 							  color: #fff;
 							}
@@ -120,18 +157,18 @@
 							  color: #fff;
 							}
 						</code></pre>
-					</section>
-				</section>
+                </section>
+            </section>
 
-				<!-- 混合（Mixins） -->
-				<section>
-					<section>
-						<h2>混合（Mixins）</h2>
-						<p>混合可以将一个定义好的class A轻松的引入到另一个class B中，从而简单实现class B继承class A中的所有属性。我们还可以带参数地调用，就像使用函数一样。</p>
-					</section>
-					<section>
-						<h4>Less：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+            <!-- 混合（Mixins） -->
+            <section>
+                <section>
+                    <h2>混合（Mixins）</h2>
+                    <p>混合可以将一个定义好的class A轻松的引入到另一个class B中，从而简单实现class B继承class A中的所有属性。我们还可以带参数地调用，就像使用函数一样。</p>
+                </section>
+                <section>
+                    <h4>Less：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.bordered {
 							  border: 1px solid black;
 							}
@@ -151,10 +188,10 @@
 							  .bd-radius(10px);
 							}
 						</code></pre>
-					</section>
-					<section>
-						<h4>编译后的CSS：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+                <section>
+                    <h4>编译后的CSS：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.bordered {
 							  border: 1px solid black;
 							}
@@ -175,19 +212,19 @@
 							  border-radius: 10px;
 							}
 						</code></pre>
-					</section>
-				</section>
-				
-				<!-- 嵌套规则（Nested Rules） -->
-				<section>
-					<section>
-						<h2>嵌套规则（Nested Rules）</h2>
-						<p>我们可以在一个选择器中嵌套另一个选择器来实现继承，这样很大程度减少了代码量，并且代码看起来更加的清晰。</p>
-					</section>
-					<section>
-						<h3>Less嵌套，例1：</h3>
-						<h4>Less：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+            </section>
+
+            <!-- 嵌套规则（Nested Rules） -->
+            <section>
+                <section>
+                    <h2>嵌套规则（Nested Rules）</h2>
+                    <p>我们可以在一个选择器中嵌套另一个选择器来实现继承，这样很大程度减少了代码量，并且代码看起来更加的清晰。</p>
+                </section>
+                <section>
+                    <h3>Less嵌套，例1：</h3>
+                    <h4>Less：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							#header {
 							  h1 {
 							    font-size: 26px;
@@ -204,10 +241,10 @@
 							  }
 							}
 						</code></pre>
-					</section>
-					<section>
-						<h4>编译后的CSS：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+                <section>
+                    <h4>编译后的CSS：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							#header h1 {
 							  font-size: 26px;
 							  font-weight: bold;
@@ -222,10 +259,10 @@
 							  border-width: 1px;
 							}
 						</code></pre>
-					</section>
-					<section>
-						<h3>Less嵌套，例2：</h3>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+                <section>
+                    <h3>Less嵌套，例2：</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.one {
 							  @media (width: 400px) {
 							    font-size: 1.2em;
@@ -235,7 +272,7 @@
 							  }
 							}
 						</code></pre>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <pre><code class="hljs" data-trim contenteditable>
 							@media (width: 400px) {
 							  .one {
 							    font-size: 1.2em;
@@ -247,18 +284,18 @@
 							  }
 							}
 						</code></pre>
-					</section>
-				</section>
+                </section>
+            </section>
 
-				<!-- 运算（Operations） -->
-				<section>
-					<section>
-						<h2>运算（Operations）</h2>
-						<p>运算提供了加，减，乘，除操作；我们可以做属性值和颜色的运算，这样就可以实现属性值之间的复杂关系。</p>
-					</section>
-					<section>
-						<h4>运算，例：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+            <!-- 运算（Operations） -->
+            <section>
+                <section>
+                    <h2>运算（Operations）</h2>
+                    <p>运算提供了加，减，乘，除操作；我们可以做属性值和颜色的运算，这样就可以实现属性值之间的复杂关系。</p>
+                </section>
+                <section>
+                    <h4>运算，例：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							@the-border: 1px;
 							@base-color: #111;
 							@red: #842210;
@@ -273,7 +310,7 @@
 							  border-color: desaturate(@red, 10%); //饱和度降低10%
 							}
 						</code></pre>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <pre><code class="hljs" data-trim contenteditable>
 							#header {
 							  color: #333;
 							  border-left: 1px;
@@ -284,126 +321,126 @@
 							  border-color: #7d2717;
 							}
 						</code></pre>
-					</section>
-				</section>
-				
-				<!-- 函数（function） -->
-				<section>
-					<section>
-						<h3>函数（function）</h3>
-						<ul class="ul-list">
-							<li>LESS中的函数一一映射了JavaScript部分代码，可以操作属性值。</li>
-							<li>提供了颜色相关的函数，可以通过色值来转换新的颜色。</li>
-							<li>提供了判断类的函数，结合条件选择关键字 when、and、 or 等可以实现一些功能强大的Mixins</li>
-						</ul>
-					</section>
-					<section>
-						<h3>字符和数学类：</h3>
-						<ul class="function-list">
-							<li>escape(@string); // 通过 URL-encoding 编码字符串</li>
-							<li>e(@string); // 对字符串转义</li>
-							<li>%(@string, values...); // 格式化字符串</li>
-							<li>unit(@dimension, [@unit: ""]); // 移除或替换属性值的单位</li>
-							<li>color(@string); // 将字符串解析为颜色值</li>
-							<li>data-uri([mimetype,] url); // * 将资源内嵌到css中，可能回退到url()</li>
-							<li>ceil(@number); // 向上取整</li>
-							<li>floor(@number); // 向下取整</li>
-							<li>percentage(@number); // 将数字转换为百分比，例如 0.5 -> 50%</li>
-							<li>round(number, [places: 0]); // 四舍五入取整</li>
-							<li>sqrt(number); // * 计算数字的平方根</li>
-							<li>abs(number); // * 数字的绝对值</li>
-							<li>sin(number); // * sin函数</li>
-							<li>asin(number); // * arcsin函数</li>
-							<li>cos(number); // * cos函数</li>
-							<li>acos(number); // * arccos函数</li>
-							<li>tan(number); // * tan函数</li>
-							<li>atan(number); // * arctan函数</li>
-							<li>pi(); // * 返回PI</li>
-							<li>pow(@base, @exponent); // * 返回@base的@exponent次方</li>
-							<li>mod(number, number); // * 第一个参数对第二个参数取余</li>
-							<li>convert(number, units); // * 在数字之间转换</li>
-							<li>unit(number, units); // * 不转换的情况下替换数字的单位</li>
-						</ul>
-					</section>
-					<section>
-						<h3>颜色类：</h3>
-						<ul class="function-list">
-							<li>color(string); // 将字符串或者转义后的值转换成颜色</li>
-							<li>rgb(@r, @g, @b); // 转换为颜色值</li>
-							<li>rgba(@r, @g, @b, @a); // 转换为颜色值</li>
-							<li>argb(@color); // 创建 #AARRGGBB 格式的颜色值</li>
-							<li>hsl(@hue, @saturation, @lightness); // 创建颜色值</li>
-							<li>hsla(@hue, @saturation, @lightness, @alpha); // 创建颜色值</li>
-							<li>hsv(@hue, @saturation, @value); // 创建颜色值</li>
-							<li>hsva(@hue, @saturation, @value, @alpha); // 创建颜色值</li>
-							<li>hue(@color); // 从颜色值中提取 hue 值（色相）</li>
-							<li>saturation(@color); // 从颜色值中提取 saturation 值（饱和度）</li>
-							<li>lightness(@color); // 从颜色值中提取 'lightness' 值（亮度）</li>
-							<li>hsvhue(@color); // * 从颜色中提取 hue 值，以HSV色彩空间表示（色相）</li>
-							<li>hsvsaturation(@color); // * 从颜色中提取 saturation 值，以HSV色彩空间表示（饱和度）</li>
-							<li>hsvvalue(@color); // * 从颜色中提取 value 值，以HSV色彩空间表示（色调）</li>
-							<li>red(@color); // 从颜色值中提取 'red' 值（红色）</li>
-							<li>green(@color); // 从颜色值中提取 'green' 值（绿色）</li>
-							<li>blue(@color); // 从颜色值中提取 'blue' 值（蓝色）</li>
-							<li>alpha(@color); // 从颜色值中提取 'alpha' 值（透明度）</li>
-							<li>luma(@color); // 从颜色值中提取 'luma' 值（亮度的百分比表示法）</li>
-						</ul>
-					</section>
-					<section>
-						<h3>颜色类：</h3>
-						<ul class="function-list">
-							<li>saturate(@color, 10%); // 饱和度增加 10%</li>
-							<li>desaturate(@color, 10%); // 饱和度降低 10%</li>
-							<li>lighten(@color, 10%); // 亮度增加 10%</li>
-							<li>darken(@color, 10%); // 亮度降低 10%</li>
-							<li>fadein(@color, 10%); // 透明度增加 10%</li>
-							<li>fadeout(@color, 10%); // 透明度降低 10%</li>
-							<li>fade(@color, 50%); // 设定透明度为 50%</li>
-							<li>spin(@color, 10); // 色相值增加 10</li>
-							<li>mix(@color1, @color2, [@weight: 50%]); // 混合两种颜色</li>
-							<li>greyscale(@color); // 完全移除饱和度，输出灰色</li>
-							<li>contrast(@color1, [@darkcolor: black], [@lightcolor: white], [@threshold: 43%]);<br> // 如果 @color1 的 luma 值 > 43% 输出 @darkcolor，否则输出 @lightcolor</li>
-							<li>multiply(@color1, @color2);</li>
-							<li>screen(@color1, @color2);</li>
-							<li>overlay(@color1, @color2);</li>
-							<li>softlight(@color1, @color2);</li>
-							<li>hardlight(@color1, @color2);</li>
-							<li>difference(@color1, @color2);</li>
-							<li>exclusion(@color1, @color2);</li>
-							<li>average(@color1, @color2);</li>
-							<li>negation(@color1, @color2);</li>
-						</ul>
-					</section>
-					<section>
-						<h3>判断类：</h3>
-						<ul class="function-list">
-							<li>iscolor(@colorOrAnything); // 判断一个值是否是颜色</li>
-							<li>isnumber(@numberOrAnything); // 判断一个值是否是数字（可含单位）</li>
-							<li>isstring(@stringOrAnything); // 判断一个值是否是字符串</li>
-							<li>iskeyword(@keywordOrAnything); // 判断一个值是否是关键字</li>
-							<li>isurl(@urlOrAnything); // 判断一个值是否是url</li>
-							<li>ispixel(@pixelOrAnything); // 判断一个值是否是以px为单位的数值</li>
-							<li>ispercentage(@percentageOrAnything); // 判断一个值是否是百分数</li>
-							<li>isem(@emOrAnything); // 判断一个值是否是以em为单位的数值</li>
-							<li>isunit(@numberOrAnything, "rem"); // * 判断一个值是否是指定单位的数值</li>
-						</ul>
-					</section>
-				</section>
-				
-				<!-- Less的条件选择 -->
-				<section>
-					<section>
-						<h3>Less的条件选择</h3>
-						<ul class="ul-list">
-							<li class="fragment">Less的条件语句使用有些另类，他不是我们常见的关键词if和else if之类，而其实现方式是利用关键词“when”。</li>
-							<li class="fragment">Less提供了很多类型检查函数来辅助条件表达式，例如：iscolor、isnumber、isstring、iskeyword、isurl。</li>
-							<li class="fragment">Less没有提供出类似for循环的循环语句，它是通过when来模拟出来循环功能，类似递归调用的方式。</li>
-						</ul>
-					</section>
-					<section>
-						<h3>条件选择，例1：</h3>
-						<h4>Less：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+            </section>
+
+            <!-- 函数（function） -->
+            <section>
+                <section>
+                    <h3>函数（function）</h3>
+                    <ul class="ul-list">
+                        <li>LESS中的函数一一映射了JavaScript部分代码，可以操作属性值。</li>
+                        <li>提供了颜色相关的函数，可以通过色值来转换新的颜色。</li>
+                        <li>提供了判断类的函数，结合条件选择关键字 when、and、 or 等可以实现一些功能强大的Mixins</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>字符和数学类：</h3>
+                    <ul class="function-list">
+                        <li>escape(@string); // 通过 URL-encoding 编码字符串</li>
+                        <li>e(@string); // 对字符串转义</li>
+                        <li>%(@string, values...); // 格式化字符串</li>
+                        <li>unit(@dimension, [@unit: ""]); // 移除或替换属性值的单位</li>
+                        <li>color(@string); // 将字符串解析为颜色值</li>
+                        <li>data-uri([mimetype,] url); // * 将资源内嵌到css中，可能回退到url()</li>
+                        <li>ceil(@number); // 向上取整</li>
+                        <li>floor(@number); // 向下取整</li>
+                        <li>percentage(@number); // 将数字转换为百分比，例如 0.5 -> 50%</li>
+                        <li>round(number, [places: 0]); // 四舍五入取整</li>
+                        <li>sqrt(number); // * 计算数字的平方根</li>
+                        <li>abs(number); // * 数字的绝对值</li>
+                        <li>sin(number); // * sin函数</li>
+                        <li>asin(number); // * arcsin函数</li>
+                        <li>cos(number); // * cos函数</li>
+                        <li>acos(number); // * arccos函数</li>
+                        <li>tan(number); // * tan函数</li>
+                        <li>atan(number); // * arctan函数</li>
+                        <li>pi(); // * 返回PI</li>
+                        <li>pow(@base, @exponent); // * 返回@base的@exponent次方</li>
+                        <li>mod(number, number); // * 第一个参数对第二个参数取余</li>
+                        <li>convert(number, units); // * 在数字之间转换</li>
+                        <li>unit(number, units); // * 不转换的情况下替换数字的单位</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>颜色类：</h3>
+                    <ul class="function-list">
+                        <li>color(string); // 将字符串或者转义后的值转换成颜色</li>
+                        <li>rgb(@r, @g, @b); // 转换为颜色值</li>
+                        <li>rgba(@r, @g, @b, @a); // 转换为颜色值</li>
+                        <li>argb(@color); // 创建 #AARRGGBB 格式的颜色值</li>
+                        <li>hsl(@hue, @saturation, @lightness); // 创建颜色值</li>
+                        <li>hsla(@hue, @saturation, @lightness, @alpha); // 创建颜色值</li>
+                        <li>hsv(@hue, @saturation, @value); // 创建颜色值</li>
+                        <li>hsva(@hue, @saturation, @value, @alpha); // 创建颜色值</li>
+                        <li>hue(@color); // 从颜色值中提取 hue 值（色相）</li>
+                        <li>saturation(@color); // 从颜色值中提取 saturation 值（饱和度）</li>
+                        <li>lightness(@color); // 从颜色值中提取 'lightness' 值（亮度）</li>
+                        <li>hsvhue(@color); // * 从颜色中提取 hue 值，以HSV色彩空间表示（色相）</li>
+                        <li>hsvsaturation(@color); // * 从颜色中提取 saturation 值，以HSV色彩空间表示（饱和度）</li>
+                        <li>hsvvalue(@color); // * 从颜色中提取 value 值，以HSV色彩空间表示（色调）</li>
+                        <li>red(@color); // 从颜色值中提取 'red' 值（红色）</li>
+                        <li>green(@color); // 从颜色值中提取 'green' 值（绿色）</li>
+                        <li>blue(@color); // 从颜色值中提取 'blue' 值（蓝色）</li>
+                        <li>alpha(@color); // 从颜色值中提取 'alpha' 值（透明度）</li>
+                        <li>luma(@color); // 从颜色值中提取 'luma' 值（亮度的百分比表示法）</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>颜色类：</h3>
+                    <ul class="function-list">
+                        <li>saturate(@color, 10%); // 饱和度增加 10%</li>
+                        <li>desaturate(@color, 10%); // 饱和度降低 10%</li>
+                        <li>lighten(@color, 10%); // 亮度增加 10%</li>
+                        <li>darken(@color, 10%); // 亮度降低 10%</li>
+                        <li>fadein(@color, 10%); // 透明度增加 10%</li>
+                        <li>fadeout(@color, 10%); // 透明度降低 10%</li>
+                        <li>fade(@color, 50%); // 设定透明度为 50%</li>
+                        <li>spin(@color, 10); // 色相值增加 10</li>
+                        <li>mix(@color1, @color2, [@weight: 50%]); // 混合两种颜色</li>
+                        <li>greyscale(@color); // 完全移除饱和度，输出灰色</li>
+                        <li>contrast(@color1, [@darkcolor: black], [@lightcolor: white], [@threshold: 43%]);<br> // 如果 @color1 的 luma 值 > 43% 输出 @darkcolor，否则输出 @lightcolor</li>
+                        <li>multiply(@color1, @color2);</li>
+                        <li>screen(@color1, @color2);</li>
+                        <li>overlay(@color1, @color2);</li>
+                        <li>softlight(@color1, @color2);</li>
+                        <li>hardlight(@color1, @color2);</li>
+                        <li>difference(@color1, @color2);</li>
+                        <li>exclusion(@color1, @color2);</li>
+                        <li>average(@color1, @color2);</li>
+                        <li>negation(@color1, @color2);</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>判断类：</h3>
+                    <ul class="function-list">
+                        <li>iscolor(@colorOrAnything); // 判断一个值是否是颜色</li>
+                        <li>isnumber(@numberOrAnything); // 判断一个值是否是数字（可含单位）</li>
+                        <li>isstring(@stringOrAnything); // 判断一个值是否是字符串</li>
+                        <li>iskeyword(@keywordOrAnything); // 判断一个值是否是关键字</li>
+                        <li>isurl(@urlOrAnything); // 判断一个值是否是url</li>
+                        <li>ispixel(@pixelOrAnything); // 判断一个值是否是以px为单位的数值</li>
+                        <li>ispercentage(@percentageOrAnything); // 判断一个值是否是百分数</li>
+                        <li>isem(@emOrAnything); // 判断一个值是否是以em为单位的数值</li>
+                        <li>isunit(@numberOrAnything, "rem"); // * 判断一个值是否是指定单位的数值</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Less的条件选择 -->
+            <section>
+                <section>
+                    <h3>Less的条件选择</h3>
+                    <ul class="ul-list">
+                        <li class="fragment">Less的条件语句使用有些另类，他不是我们常见的关键词if和else if之类，而其实现方式是利用关键词“when”。</li>
+                        <li class="fragment">Less提供了很多类型检查函数来辅助条件表达式，例如：iscolor、isnumber、isstring、iskeyword、isurl。</li>
+                        <li class="fragment">Less没有提供出类似for循环的循环语句，它是通过when来模拟出来循环功能，类似递归调用的方式。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>条件选择，例1：</h3>
+                    <h4>Less：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.mixin (@a) when (@a >= 10) {
 							  background-color: black;
 							}
@@ -413,8 +450,8 @@
 							.class1 { .mixin(12) }
 							.class2 { .mixin(6) }
 						</code></pre>
-						<h4>编译后的CSS：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <h4>编译后的CSS：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.class1 {
 							  background-color: black;
 							}
@@ -422,11 +459,11 @@
 							  background-color: white;
 							}
 						</code></pre>
-					</section>
-					<section>
-						<h3>条件选择，例2：</h3>
-						<h4>Less：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+                <section>
+                    <h3>条件选择，例2：</h3>
+                    <h4>Less：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.mixin (@a) when (iscolor(@a)) {
 							  background-color: black;
 							}
@@ -436,8 +473,8 @@
 							.class1 { .mixin(red) }
 							.class2 { .mixin(6) }
 						</code></pre>
-						<h4>编译后的CSS：</h4>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <h4>编译后的CSS：</h4>
+                    <pre><code class="hljs" data-trim contenteditable>
 							.class1 {
 							  background-color: black;
 							}
@@ -445,19 +482,19 @@
 							  background-color: white;
 							}
 						</code></pre>
-					</section>
-				</section>
-				
-				<!-- 命名空间（Namespaces） -->
-				<section>
-					<section>
-						<h3>命名空间（Namespaces）</h3>
-						<p>命名空间可以用于组织我们的CSS，从而提高到另一个层次，我们将一些公用的样式创建分组，然后在使用的时候直接调用。</p>
-					</section>
-					<section>
-						<h3>命名空间，例：</h3>
-						<p>在 #bundle 中定义一些属性集之后可以重复使用</p>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+            </section>
+
+            <!-- 命名空间（Namespaces） -->
+            <section>
+                <section>
+                    <h3>命名空间（Namespaces）</h3>
+                    <p>命名空间可以用于组织我们的CSS，从而提高到另一个层次，我们将一些公用的样式创建分组，然后在使用的时候直接调用。</p>
+                </section>
+                <section>
+                    <h3>命名空间，例：</h3>
+                    <p>在 #bundle 中定义一些属性集之后可以重复使用</p>
+                    <pre><code class="hljs" data-trim contenteditable>
 							#bundle {
 							  .button() {
 							    display: block;
@@ -467,25 +504,25 @@
 							  }
 							}
 						</code></pre>
-						<p>在 #header a 中像这样引入 .button</p>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <p>在 #header a 中像这样引入 .button</p>
+                    <pre><code class="hljs" data-trim contenteditable>
 							#header a {
 							  color: orange;
 							  #bundle > .button();
 							}						
 						</code></pre>
-					</section>
-				</section>
-				
-				<!-- 作用域（Scope） -->
-				<section>
-					<section>
-						<h3>作用域（Scope）</h3>
-						<p>Less 中的作用域跟其他编程语言非常类似，首先会从本地查找变量或者混合模块，如果没找到的话会去父级作用域中查找，直到找到为止。</p>
-					</section>
-					<section>
-						<h3>作用域，例：</h3>
-						<pre><code class="hljs" data-trim contenteditable>
+                </section>
+            </section>
+
+            <!-- 作用域（Scope） -->
+            <section>
+                <section>
+                    <h3>作用域（Scope）</h3>
+                    <p>Less 中的作用域跟其他编程语言非常类似，首先会从本地查找变量或者混合模块，如果没找到的话会去父级作用域中查找，直到找到为止。</p>
+                </section>
+                <section>
+                    <h3>作用域，例：</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
 							@var: red;
 
 							#page {
@@ -499,11 +536,11 @@
 							  color: @var; //red
 							}
 						</code></pre>
-						<p style="font-size: 28px;">Tips：如果把最顶部的这个@var: red 去掉进行编译会怎样？</p>
-					</section>
-					<section>
-						<h3>对比javascript的作用域：</h3>
-						<pre><code class="hljs" data-trim contenteditable>
+                    <p style="font-size: 28px;">Tips：如果把最顶部的这个@var: red 去掉进行编译会怎样？</p>
+                </section>
+                <section>
+                    <h3>对比javascript的作用域：</h3>
+                    <pre><code class="hljs" data-trim contenteditable>
 							var color = 'red';
 							var fn1 = function() {
 							  var color = 'white';
@@ -515,36 +552,36 @@
 							fn1(); //white
 							fn2(); //red
 						</code></pre>
-					</section>
-				</section>
-				
-				<!-- 注释 -->
-				<section>
-					<h3>注释</h3>
-					<ul class="ul-list">
-						<li>/*这里是注释*/	（多行注释，不会被编译掉）</li>
-						<li>//这里是注释		（单行注释，会被编译掉）</li>
-					</ul>
-				</section>
-				
-				<!-- 导入（Import） -->
-				<section>
-					<h3>导入（Import）</h3>
-					<p style="text-align: left;">在Less中，你既可以导入CSS文件，也可以导入Less文件。但只有导入的LESS文件才会被处理（编译），导入的CSS文件会保持原样。如果你希望导入一个CSS文件，保留.css后缀即可</p>
-					<div class="fragment">
-						<p style="text-align: left;">可以强制某个文件使用特定的方式来处理，例如：</p>
-						<ul class="ul-list">
-							<li>@import (css) "lib";			（按导入css的方式，不进行处理）</li>
-							<li>@import (less) "lib.css"; （按导入Less的方式，进行预处理）</li>
-						</ul>
-					</div>
-				</section>
-				
-				<!-- 字符串插值 -->
-				<section>
-					<h3>字符串插值</h3>
-					<p style="text-align: left;">变量可以用像 @{name} 这样的结构，以类似 ruby 和 php 的方式嵌入到字符串中</p>
-					<pre><code class="hljs" data-trim contenteditable>
+                </section>
+            </section>
+
+            <!-- 注释 -->
+            <section>
+                <h3>注释</h3>
+                <ul class="ul-list">
+                    <li>/*这里是注释*/ （多行注释，不会被编译掉）</li>
+                    <li>//这里是注释 （单行注释，会被编译掉）</li>
+                </ul>
+            </section>
+
+            <!-- 导入（Import） -->
+            <section>
+                <h3>导入（Import）</h3>
+                <p style="text-align: left;">在Less中，你既可以导入CSS文件，也可以导入Less文件。但只有导入的LESS文件才会被处理（编译），导入的CSS文件会保持原样。如果你希望导入一个CSS文件，保留.css后缀即可</p>
+                <div class="fragment">
+                    <p style="text-align: left;">可以强制某个文件使用特定的方式来处理，例如：</p>
+                    <ul class="ul-list">
+                        <li>@import (css) "lib"; （按导入css的方式，不进行处理）</li>
+                        <li>@import (less) "lib.css"; （按导入Less的方式，进行预处理）</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 字符串插值 -->
+            <section>
+                <h3>字符串插值</h3>
+                <p style="text-align: left;">变量可以用像 @{name} 这样的结构，以类似 ruby 和 php 的方式嵌入到字符串中</p>
+                <pre><code class="hljs" data-trim contenteditable>
 						@base-url: "http://www.migu.cn";
 						background-image: url("@{base-url}/images/bg.png");
 
@@ -553,44 +590,44 @@
 						  color: black;
 						}
 					</code></pre>
-					<div class="fragment">
-						<p style="text-align: left;">对比es6字符串模板：</p>
-						<pre><code class="hljs" data-trim contenteditable>
+                <div class="fragment">
+                    <p style="text-align: left;">对比es6字符串模板：</p>
+                    <pre><code class="hljs" data-trim contenteditable>
 							`${base-url}/images/bg.png`
 						</code></pre>
-					</div>
-				</section>
+                </div>
+            </section>
 
-				<!-- 避免编译 -->
-				<section>
-					<h3>避免编译</h3>
-					<p style="text-align: left;">有时候我们需要输出一些不正确的 CSS 语法或者使用一些 Less 不认识的专有语法。要输出这样的值我们可以在字符串前加上一个 <strong>~</strong></p>
-					<pre><code class="hljs" data-trim contenteditable>
+            <!-- 避免编译 -->
+            <section>
+                <h3>避免编译</h3>
+                <p style="text-align: left;">有时候我们需要输出一些不正确的 CSS 语法或者使用一些 Less 不认识的专有语法。要输出这样的值我们可以在字符串前加上一个 <strong>~</strong></p>
+                <pre><code class="hljs" data-trim contenteditable>
 						.class {
 						  filter: ~"ms:alwaysHasItsOwnSyntax.For.Stuff()";
 						}
 					</code></pre>
-					<p style="text-align: left;">输出成：</p>
-					<pre><code class="hljs" data-trim contenteditable>
+                <p style="text-align: left;">输出成：</p>
+                <pre><code class="hljs" data-trim contenteditable>
 						.class {
 						  filter: ms:alwaysHasItsOwnSyntax.For.Stuff();
 						}					
 					</code></pre>
-				</section>
+            </section>
 
-				<!-- 编译Less -->
-				<section>
-					<h3>编译Less</h3>
-					<ol class="ol-list">
-						<li class="fragment">通过GUI工具（koala）</li>
-						<li class="fragment">通过node.js
-							<pre><code class="hljs" data-trim contenteditable>
+            <!-- 编译Less -->
+            <section>
+                <h3>编译Less</h3>
+                <ol class="ol-list">
+                    <li class="fragment">通过GUI工具（koala）</li>
+                    <li class="fragment">通过node.js
+                        <pre><code class="hljs" data-trim contenteditable>
 								npm install -g less
 								lessc less/style.less css/style.css
 							</code></pre>
-						</li>
-						<li class="fragment">通过打包工具（webpack的loaders）
-							<pre><code class="hljs" data-trim contenteditable>
+                    </li>
+                    <li class="fragment">通过打包工具（webpack的loaders）
+                        <pre><code class="hljs" data-trim contenteditable>
 								module: {
 							    rules: [{
 						        test: /\.less$/,
@@ -601,70 +638,89 @@
 						      }]
 							  }
 							</code></pre>
-						</li>
-					</ol>
-				</section>
+                    </li>
+                </ol>
+            </section>
 
-				<!-- Less的现状 -->
-				<section>
-					<section>
-						<h3>Less的瓶颈及现状</h3>
-						<ul class="ul-list">
-							<li class="fragment">从词法角度讲，LESS的确是最接近CSS的，但是仅限于如此。但是不幸的是它占用了 @at-rule 关键字作为了变量标识符，使得功能扩展性大大降低</li>
-							<li class="fragment">引入循环、条件判断。Less是通过递归解决循环的，其他语言可以使用if、else、for等关键字</li>
-							<li class="fragment">这些缺陷在Less第一版出现时，就已经注定了这个语言的没落</li>
-						</ul>
-					</section>
-					<section>
-						<ul class="ul-list">
-							<li>
-							bootstrap从2的默认less，到3的scss复制，到未来4的scss默认。也能看出Less开始慢慢淡出前端技术栈的第一梯队。
-							<div><img src="images/topic.png" style="background: none; border: 0;"></div>
-							</li>
-						</ul>
-					</section>
-				</section>
+            <!-- Less的现状 -->
+            <section>
+                <section>
+                    <h3>Less的瓶颈及现状</h3>
+                    <ul class="ul-list">
+                        <li class="fragment">从词法角度讲，LESS的确是最接近CSS的，但是仅限于如此。但是不幸的是它占用了 @at-rule 关键字作为了变量标识符，使得功能扩展性大大降低</li>
+                        <li class="fragment">引入循环、条件判断。Less是通过递归解决循环的，其他语言可以使用if、else、for等关键字</li>
+                        <li class="fragment">这些缺陷在Less第一版出现时，就已经注定了这个语言的没落</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul class="ul-list">
+                        <li>
+                            bootstrap从2的默认less，到3的scss复制，到未来4的scss默认。也能看出Less开始慢慢淡出前端技术栈的第一梯队。
+                            <div><img src="images/topic.png" style="background: none; border: 0;"></div>
+                        </li>
+                    </ul>
+                </section>
+            </section>
 
-				<section>
-					<h3>Less的实例以及常用Mixins</h3>
-					<p>演示代码</p>
-					<p>Q&A</p>
-				</section>
+            <section>
+                <h3>Less的实例以及常用Mixins</h3>
+                <p>演示代码</p>
+                <p>Q&A</p>
+            </section>
 
-				<section>
-					<div><img src="images/migu_logo.png" style="border: none; background: none;"></div>
-					<h3>谢谢大家</h3>
-					<div style="font-size: 30px; position: relative; top: 100px;"><a href="less.html?print-pdf">转换成pdf</a></div>
-				</section>
-			</div>
-		</div>
+            <section>
+                <div><img src="images/migu_logo.png" style="border: none; background: none;"></div>
+                <h3>谢谢大家</h3>
+                <div style="font-size: 30px; position: relative; top: 100px;"><a href="less.html?print-pdf">转换成pdf</a></div>
+            </section>
+        </div>
+    </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
 
-		<script>
+    <script>
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
 
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+            transition: 'convex', // none/fade/slide/convex/concave/zoom
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [{
+                src: 'lib/js/classList.js',
+                condition: function() {
+                    return !document.body.classList;
+                }
+            }, {
+                src: 'plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'plugin/notes/notes.js',
+                async: true
+            }]
+        });
+    </script>
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
+</body>
 
-		</script>
-
-	</body>
 </html>
