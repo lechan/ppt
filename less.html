@@ -169,25 +169,26 @@
                 <section>
                     <h4>Less：</h4>
                     <pre><code class="hljs" data-trim contenteditable>
-							.bordered {
-							  border: 1px solid black;
-							}
-							.bd-radius(@radius: 5px) {
-							  -webkit-border-radius: @radius;
-							  -moz-border-radius: @radius;
-							  -ms-border-radius: @radius;
-							  -o-border-radius: @radius;
-							  border-radius: @radius;
-							}
-							#header {
-							  .bordered;
-							  .bd-radius();
-							}
-							#footer {
-							  .bordered;
-							  .bd-radius(10px);
-							}
-						</code></pre>
+                        .bordered {
+                          border: 1px solid black;
+                        }
+                        .bd-radius(@radius: 5px) {
+                          -webkit-border-radius: @radius;
+                          -moz-border-radius: @radius;
+                          -ms-border-radius: @radius;
+                          -o-border-radius: @radius;
+                          border-radius: @radius;
+                        }
+                        #header {
+                          //.bordered;
+                          &:extend(.bordered);
+                          .bd-radius();
+                        }
+                        #footer {
+                          &:extend(.bordered);
+                          .bd-radius(10px);
+                        }
+					</code></pre>
                 </section>
                 <section>
                     <h4>编译后的CSS：</h4>
@@ -660,6 +661,14 @@
                         </li>
                     </ul>
                 </section>
+            </section>
+            <section>
+                <h3>为何要使用预编译语言</h3>
+                <ul class="ul-list">
+                    <li class="fragment">CSS 自诞生以来，基本语法和核心机制一直没有本质上的变化，它的发展几乎全是表现力层面上的提升。最开始 CSS 在网页中的作用只是辅助性的装饰，轻便易学是最大的需求；然而如今网站的复杂度已经不可同日而语，原生 CSS 已经让开发者力不从心。</li>
+                    <li class="fragment">当一门语言的能力不足而用户的运行环境又不支持其它选择的时候，这门语言就会沦为 “编译目标” 语言。开发者将选择另一门更高级的语言来进行开发，然后编译到底层语言以便实际运行。</li>
+                    <li class="fragment">于是，在前端领域，天降大任于斯人也，CSS 预处理器应运而生。而 CSS 这门古老的语言以另一种方式 “重新适应” 了网页开发的需求。</li>
+                </ul>
             </section>
 
             <section>
