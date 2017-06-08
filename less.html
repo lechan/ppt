@@ -112,9 +112,18 @@
             <section>
                 <h2>什么是Less？</h2>
                 <ul class="ul-list">
-                    <li class="fragment">Less是一种动态样式语言，属于CSS预处理语言的一种，它使用类似CSS的语法，为CSS的赋予了动态语言的特性，如变量、继承、运算、函数等，更方便CSS的编写和维护。</li>
+                    <li class="fragment">Less是一种动态样式语言，属于CSS预处理语言的一种，它使用类似CSS的语法，为CSS赋予了动态语言的特性，如变量、继承、运算、函数等，更方便CSS的编写和维护。</li>
                     <li class="fragment">Less可以在多种语言、环境中使用，包括浏览器端、桌面客户端、服务端。</li>
                     <li class="fragment">Less是2009年诞生的，比他的兄弟语言Sass晚了2年（Sass是2007年），Less受Sass影响较大，语法比Sass简单而且更容易上手，因此反过来也影响了Sass演变成了Scss的时代。</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>为何要使用预编译语言？</h3>
+                <ul class="ul-list">
+                    <li class="fragment">CSS 自诞生以来，基本语法和核心机制一直没有本质上的变化，它的发展几乎全是表现力层面上的提升。最开始 CSS 在网页中的作用只是辅助性的装饰，轻便易学是最大的需求；然而如今网站的复杂度已经不可同日而语，原生 CSS 已经让开发者力不从心。</li>
+                    <li class="fragment">当一门语言的能力不足而用户的运行环境又不支持其它选择的时候，这门语言就会沦为 “编译目标” 语言。开发者将选择另一门更高级的语言来进行开发，然后编译到底层语言以便实际运行。</li>
+                    <li class="fragment">于是，在前端领域，天降大任于斯人也，CSS 预处理器应运而生。而 CSS 这门古老的语言以另一种方式 “重新适应” 了网页开发的需求。</li>
                 </ul>
             </section>
 
@@ -537,7 +546,7 @@
 							  color: @var; //red
 							}
 						</code></pre>
-                    <p style="font-size: 28px;">Tips：如果把最顶部的这个@var: red 去掉进行编译会怎样？</p>
+                    <p style="font-size: 28px;">ps：如果把最顶部的这个@var: red 去掉进行编译会怎样？</p>
                 </section>
                 <section>
                     <h3>对比javascript的作用域：</h3>
@@ -662,15 +671,7 @@
                     </ul>
                 </section>
             </section>
-            <section>
-                <h3>为何要使用预编译语言</h3>
-                <ul class="ul-list">
-                    <li class="fragment">CSS 自诞生以来，基本语法和核心机制一直没有本质上的变化，它的发展几乎全是表现力层面上的提升。最开始 CSS 在网页中的作用只是辅助性的装饰，轻便易学是最大的需求；然而如今网站的复杂度已经不可同日而语，原生 CSS 已经让开发者力不从心。</li>
-                    <li class="fragment">当一门语言的能力不足而用户的运行环境又不支持其它选择的时候，这门语言就会沦为 “编译目标” 语言。开发者将选择另一门更高级的语言来进行开发，然后编译到底层语言以便实际运行。</li>
-                    <li class="fragment">于是，在前端领域，天降大任于斯人也，CSS 预处理器应运而生。而 CSS 这门古老的语言以另一种方式 “重新适应” 了网页开发的需求。</li>
-                </ul>
-            </section>
-
+            
             <section>
                 <h3>Less的实例以及常用Mixins</h3>
                 <p>演示代码</p>
